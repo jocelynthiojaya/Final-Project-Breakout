@@ -9,4 +9,4 @@ class Settings():
         self.bg_color = (230, 230, 230)
 
         # Bat settings
-        self.bat_speed_factor = 1
+        self.bat_speed_factor = 2

@@ -1,7 +1,9 @@
 import pygame
 
-class Bat():
-    def __init__(self, ai_settings, screen):        
+class Bat(pygame.sprite.Sprite):
+    def __init__(self, ai_settings, screen):
+        super().__init__()
+
         # Initialize the bat and set its starting position.
         self.screen = screen
         self.ai_settings = ai_settings

@@ -28,11 +28,15 @@ def check_events(bat):
         elif event.type == pygame.KEYUP:            
             check_keyup_events(event, bat)
 
-def update_screen(ai_settings, screen, bat):    
+def is_collition(ball, bat):
+    return ball.rect.colliderect(bat.rect)
+
+def update_screen(ai_settings, screen, bat, ball):    
     # Update images on the screen and flip to the new screen.
     # Redraw the screen during each pass through the loop.    
     screen.fill(ai_settings.bg_color)    
     bat.blitme()
+    ball.blitme()
     
     # Make the most recently drawn screen visible.
     pygame.display.flip()

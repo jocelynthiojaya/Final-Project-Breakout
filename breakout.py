@@ -2,6 +2,7 @@ import pygame
 
 from settings import Settings
 from bat import Bat
+from ball import Ball
 import game_functions as gf
 
 def run_game():    
@@ -14,11 +15,16 @@ def run_game():
 
     # Make a bat
     bat = Bat(ai_settings, screen)
+    ball = Ball(ai_settings, screen) 
 
     # Start the main loop for the game. 
     while True:
         gf.check_events(bat)
-        bat.update()                       
-        gf.update_screen(ai_settings, screen, bat)
+        if gf.is_collition(ball, bat):
+            ball.collision()
+        bat.update()
+        ball.update()
+                                  
+        gf.update_screen(ai_settings, screen, bat, ball)
 
 run_game()
