@@ -1,6 +1,5 @@
 import pygame
 from random import randint
-BLACK = (0,0,0)
  
 class Ball(pygame.sprite.Sprite):
     #This class represents a car. It derives from the "Sprite" class in Pygame.
@@ -18,24 +17,15 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
-        #self.velocity = [randint(2,4),randint(-4,4)]
+        #self.velocity = [randint(-1,1),randint(-1,1)]
         self.velocity =[1,1]
         
-        self.rect.x = 100
-        self.rect.y = 100
+        self.rect.x = self.screen_rect.centerx 
+        self.rect.y = self.screen_rect.bottom
         
     def update(self):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
-
-        #if self.rect.x>=self.screen_rect.right:
-        #    self.velocity = -self.velocity
-        #if self.rect.x<=0:
-        #    self.velocity = -self.velocity 
-        #if self.rect.y>self.screen_rect.bottom:
-        #    self.velocity = -self.velocity
-        #if self.rect.y<0:
-        #    self.velocity = -self.velocity
 
         if self.rect.x>=self.screen_rect.right:
             self.velocity[0] = -self.velocity[0]
@@ -46,7 +36,11 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.y<0:
             self.velocity[1] = -self.velocity[1] 
     
-    def collision(self):
+    def bat_collision(self):
+        self.velocity[0] = -self.velocity[0]
+        self.velocity[1] = randint(-1,1)
+    
+    def brick_collision(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-1,1)
     
