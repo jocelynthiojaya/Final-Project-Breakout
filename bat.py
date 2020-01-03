@@ -38,3 +38,7 @@ class Bat(pygame.sprite.Sprite):
     def blitme(self):        
         # Draw the bat at its current location.
         self.screen.blit(self.image, self.rect)
+    
+    def center_bat(self):        
+        # Center the ship on the screen.
+        self.center = self.screen_rect.centerx

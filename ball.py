@@ -17,11 +17,11 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
-        #self.velocity = [randint(-1,1),randint(-1,1)]
-        self.velocity =[1,1]
+        self.velocity = [randint(1,1),randint(-1,1)]
+        #self.velocity =[-1,1]
         
         self.rect.x = self.screen_rect.centerx 
-        self.rect.y = self.screen_rect.bottom
+        self.rect.y = self.screen_rect.bottom -55
         
     def update(self):
         self.rect.x += self.velocity[0]
@@ -46,3 +46,8 @@ class Ball(pygame.sprite.Sprite):
     
     def blitme(self): 
         self.screen.blit(self.image, self.rect)
+    
+    def center_ball(self):        
+        # Center the ship on the screen.
+        self.rect.x = self.screen_rect.centerx 
+        self.rect.y = self.screen_rect.bottom -55

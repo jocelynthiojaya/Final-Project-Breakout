@@ -1,5 +1,6 @@
 import sys
 import pygame
+from time import sleep
 
 from brick import Brick
 from ball import Ball
@@ -33,6 +34,28 @@ def check_events(bat):
 def is_collision_bat(ball, bat):
     return ball.rect.colliderect(bat.rect)
 
+def ball_die(ai_settings, stats, screen, bat, bricks, ball, bottom_line):    
+    # Respond to ship being hit by alien.
+    # Decrement ships_left. 
+    if stats.balls_left > 0:
+        col = pygame.sprite.collide_rect(ball, bottom_line)
+        if col == True:
+            print('hit bottom')
+            stats.balls_left -= 1
+
+            # empty list of bricks
+            #bricks.empty()
+
+            #create new row
+            #create_rowbricks(ai_settings, screen, bricks)
+            bat.center_bat()
+            ball.center_ball()
+
+            #pause
+            sleep(0.5)
+    else:        
+        stats.game_active = False
+
 def collision_brick(ball, bricks):
     #score = 0
     # detect collisions
@@ -42,12 +65,13 @@ def collision_brick(ball, bricks):
     #    score += 1
     #    print(score)
 
-def update_screen(ai_settings, screen, bat, ball, bricks):    
+def update_screen(ai_settings, screen, bat, ball, bricks, bottom_line):    
     # Update images on the screen and flip to the new screen.
     # Redraw the screen during each pass through the loop.    
     screen.fill(ai_settings.bg_color)    
     bat.blitme()
     ball.blitme()
+    bottom_line.blitme()
     bricks.draw(screen)
     
     # Make the most recently drawn screen visible.

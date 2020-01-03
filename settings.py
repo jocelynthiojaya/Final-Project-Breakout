@@ -10,3 +10,6 @@ class Settings():
 
         # Bat settings
         self.bat_speed_factor = 1.5
+
+        # Ball settings
+        self.ball_limit = 3
