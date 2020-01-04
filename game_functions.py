@@ -5,6 +5,7 @@ from time import sleep
 from brick import Brick
 from ball import Ball
 
+
 def check_keydown_events(event, bat):
     # Respond to keypresses
     if event.key == pygame.K_RIGHT:
@@ -19,7 +20,7 @@ def check_keyup_events(event, bat):
     elif event.key == pygame.K_LEFT:
         bat.moving_left = False
 
-def check_events(bat):    
+def check_events(ai_settings, screen, stats, sb, bat, bricks, play_button):    
     # Respond to keypresses and mouse events.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:            
@@ -30,11 +31,40 @@ def check_events(bat):
         
         elif event.type == pygame.KEYUP:            
             check_keyup_events(event, bat)
+        
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(ai_settings, screen, stats, sb, bat, bricks, play_button, 
+                mouse_x, mouse_y)
+
+def check_play_button(ai_settings, screen, stats, sb, bat, bricks, play_button, 
+    mouse_x, mouse_y):
+    # Start a new game when the player clicks Play.
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        # Hide the mouse cursor.
+        pygame.mouse.set_visible(False)
+        
+        # Reset the game statistics.
+        stats.reset_stats()      
+        stats.game_active = True
+
+        # Empty the list of bricks
+        bricks.empty()
+
+        # Create a new fleet and center the ship.
+        create_rowbricks(ai_settings, screen, bricks)
+        bat.center_bat()
+
+        # Reset the scoreboard images
+        sb.prep_score()
+        sb.prep_high_score()
+        sb.prep_balls()
 
 def is_collision_bat(ball, bat):
     return ball.rect.colliderect(bat.rect)
 
-def ball_die(ai_settings, stats, screen, bat, bricks, ball, bottom_line):    
+def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):    
     # Respond to ship being hit by alien.
     # Decrement ships_left. 
     if stats.balls_left > 0:
@@ -42,6 +72,9 @@ def ball_die(ai_settings, stats, screen, bat, bricks, ball, bottom_line):
         if col == True:
             print('hit bottom')
             stats.balls_left -= 1
+
+            # Update scoreboard
+            sb.prep_balls()
 
             # empty list of bricks
             #bricks.empty()
@@ -55,17 +88,23 @@ def ball_die(ai_settings, stats, screen, bat, bricks, ball, bottom_line):
             sleep(0.5)
     else:        
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
-def collision_brick(ball, bricks):
+def collision_brick(ai_settings, stats, sb, ball, bricks):
     #score = 0
     # detect collisions
     for brick in pygame.sprite.spritecollide(ball, bricks, True): 
         ball.brick_collision()
+        
+        stats.score += ai_settings.brick_points        
+        sb.prep_score()
+        check_high_score(stats, sb)
     #for brick in bricks_hit_list:
     #    score += 1
     #    print(score)
 
-def update_screen(ai_settings, screen, bat, ball, bricks, bottom_line):    
+def update_screen(ai_settings, screen, stats, sb, bat, ball, bricks, 
+    bottom_line, play_button):    
     # Update images on the screen and flip to the new screen.
     # Redraw the screen during each pass through the loop.    
     screen.fill(ai_settings.bg_color)    
@@ -73,6 +112,13 @@ def update_screen(ai_settings, screen, bat, ball, bricks, bottom_line):
     ball.blitme()
     bottom_line.blitme()
     bricks.draw(screen)
+
+    # Draw the score information.    
+    sb.show_score()
+
+    # Draw the play button if the game is inactive.
+    if not stats.game_active:        
+        play_button.draw_button()
     
     # Make the most recently drawn screen visible.
     pygame.display.flip()
@@ -111,5 +157,9 @@ def create_rowbricks(ai_settings, screen, bricks):
         for brick_number in range(number_bricks_x):        
             create_brick(ai_settings, screen, bricks, brick_number, row_number)
 
-             
+def check_high_score(stats, sb):
+    # Check to see if there's a new high score.
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
         

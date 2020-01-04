@@ -13,3 +13,6 @@ class Settings():
 
         # Ball settings
         self.ball_limit = 3
+    
+        # Scoring
+        self.brick_points = 50

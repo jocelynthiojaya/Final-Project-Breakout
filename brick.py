@@ -21,7 +21,7 @@ class Brick(pygame.sprite.Sprite):
         self.image.fill(BLACK)
         self.image.set_colorkey(BLACK)
  
-        # Draw the paddle (a rectangle!)
+        # Draw the brick (a rectangle!)
         pygame.draw.rect(self.image, RED, [10, 10, self.width, self.height])
         
         # Fetch the rectangle object that has the dimensions of the image.
