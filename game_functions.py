@@ -6,19 +6,23 @@ from brick import Brick
 from ball import Ball
 
 
-def check_keydown_events(event, bat):
+def check_keydown_events(ai_settings, event, bat):
     # Respond to keypresses
     if event.key == pygame.K_RIGHT:
         bat.moving_right = True
     elif event.key == pygame.K_LEFT:
         bat.moving_left = True
+    elif event.key == pygame.K_SPACE:
+        ai_settings.bat_speed_factor += 1
 
-def check_keyup_events(event, bat):
+def check_keyup_events(ai_settings, event, bat):
     # Respond to key releases
     if event.key == pygame.K_RIGHT:
         bat.moving_right = False
     elif event.key == pygame.K_LEFT:
         bat.moving_left = False
+    elif event.key == pygame.K_SPACE:
+        ai_settings.bat_speed_factor -= 1
 
 def check_events(ai_settings, screen, stats, sb, bat, bricks, play_button):    
     # Respond to keypresses and mouse events.
@@ -27,10 +31,10 @@ def check_events(ai_settings, screen, stats, sb, bat, bricks, play_button):
             sys.exit()
         
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, bat)
+            check_keydown_events(ai_settings, event, bat)
         
         elif event.type == pygame.KEYUP:            
-            check_keyup_events(event, bat)
+            check_keyup_events(ai_settings, event, bat)
         
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -131,7 +135,7 @@ def get_number_bricks_x(ai_settings, brick_width):
 
 def get_number_rows(ai_settings, brick_height):
     # Determine the number of rows of aliens that fit on the screen.
-    available_space_y = (ai_settings.screen_height - (8 * brick_height))   
+    available_space_y = (ai_settings.screen_height - (10 * brick_height))   
     number_rows = int(available_space_y / (2 * brick_height))    
     return number_rows
 

@@ -12,7 +12,7 @@ class Settings():
         self.bat_speed_factor = 1.5
 
         # Ball settings
-        self.ball_limit = 3
+        self.ball_limit = 5
     
         # Scoring
         self.brick_points = 50
