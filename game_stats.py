@@ -17,3 +17,4 @@ class GameStats():
         # Initialize statistics that can change during the game.
         self.balls_left = self.ai_settings.ball_limit
         self.score = 0
+        self.level = 1

@@ -63,6 +63,7 @@ def check_play_button(ai_settings, screen, stats, sb, bat, bricks, play_button,
         # Reset the scoreboard images
         sb.prep_score()
         sb.prep_high_score()
+        sb.prep_level()
         sb.prep_balls()
 
 def is_collision_bat(ball, bat):
@@ -80,16 +81,25 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
             # Update scoreboard
             sb.prep_balls()
 
-            # empty list of bricks
-            #bricks.empty()
-
-            #create new row
-            #create_rowbricks(ai_settings, screen, bricks)
             bat.center_bat()
             ball.center_ball()
 
             #pause
             sleep(0.5)
+        
+        if len(bricks) == 0:
+            # Destroy existing bricks, create new smaller ones
+            bricks.empty()
+            bat.center_bat()
+            ball.center_ball()
+            ai_settings.level_up()
+            
+            # Increase level.
+            stats.level += 1
+            sb.prep_level()
+            
+            create_rowbricks(ai_settings, screen, bricks)
+            
     else:        
         stats.game_active = False
         pygame.mouse.set_visible(True)
@@ -135,7 +145,7 @@ def get_number_bricks_x(ai_settings, brick_width):
 
 def get_number_rows(ai_settings, brick_height):
     # Determine the number of rows of aliens that fit on the screen.
-    available_space_y = (ai_settings.screen_height - (10 * brick_height))   
+    available_space_y = (ai_settings.screen_height - (3 * brick_height))   
     number_rows = int(available_space_y / (2 * brick_height))    
     return number_rows
 
@@ -146,7 +156,7 @@ def create_brick(ai_settings, screen, bricks, brick_number, row_number):
 
     brick.x = brick_width + brick_width * brick_number        
     brick.rect.x = brick.x
-    brick.rect.y = brick.rect.height + 1.5 * brick.rect.height * row_number      
+    brick.rect.y = brick.rect.height + 1 * brick.rect.height * row_number      
     bricks.add(brick)
 
 def create_rowbricks(ai_settings, screen, bricks):    

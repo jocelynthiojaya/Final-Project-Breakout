@@ -1,4 +1,6 @@
 import pygame
+BLACK = (0,0,0)
+RED = (255,0,0)
 
 class Bat(pygame.sprite.Sprite):
     def __init__(self, ai_settings, screen):
@@ -8,14 +10,26 @@ class Bat(pygame.sprite.Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         
-        # Load the bat image and get its rect.
-        self.image = pygame.image.load('images/bat.bmp') 
+        self.width = ai_settings.bat_width
+        self.height = ai_settings.bat_height
+
+        # Pass in the color of the car, and its x and y position, width and height.
+        # Set the background color and set it to be transparent
+        self.image = pygame.Surface([self.width, self.height])
+        self.image.fill(RED)
+        self.image.set_colorkey(RED)
+ 
+        # Draw the brick (a rectangle!)
+        pygame.draw.rect(self.image, BLACK, [0, 0, self.width, self.height])
+        
+        # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
+
         self.screen_rect = screen.get_rect()
         
         # Start each new bat at the bottom center of the screen.
         self.rect.centerx = self.screen_rect.centerx        
-        self.rect.bottom = self.screen_rect.bottom - 25
+        self.rect.bottom = self.screen_rect.bottom - 30
 
         # Store a decimal value for the bat's center.
         self.center = float(self.rect.centerx)

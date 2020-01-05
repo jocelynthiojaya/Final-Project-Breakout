@@ -1,6 +1,5 @@
 import pygame
 BLACK = (0,0,0)
-RED = (255,0,0)
  
 class Brick(pygame.sprite.Sprite):
     
@@ -12,8 +11,8 @@ class Brick(pygame.sprite.Sprite):
         self.screen = screen        
         self.ai_settings = ai_settings
 
-        self.width = 60
-        self.height = 30
+        self.width = ai_settings.brick_width
+        self.height = ai_settings.brick_height
 
         # Pass in the color of the car, and its x and y position, width and height.
         # Set the background color and set it to be transparent
@@ -22,7 +21,7 @@ class Brick(pygame.sprite.Sprite):
         self.image.set_colorkey(BLACK)
  
         # Draw the brick (a rectangle!)
-        pygame.draw.rect(self.image, RED, [10, 10, self.width, self.height])
+        pygame.draw.rect(self.image, ai_settings.brick_color, [10, 10, self.width, self.height])
         
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()

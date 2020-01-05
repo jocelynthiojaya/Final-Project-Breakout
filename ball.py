@@ -18,11 +18,11 @@ class Ball(pygame.sprite.Sprite):
         self.screen_rect = screen.get_rect()
         
         self.rect.x = self.screen_rect.centerx 
-        self.rect.y = self.screen_rect.bottom -60
+        self.rect.y = self.screen_rect.bottom -54
 
         self.change_x = random.randrange(-1, 2)
         self.change_y = random.randrange(-1, 2)
-        
+
     def update(self):
         self.rect.x += self.change_x
         self.rect.y += self.change_y
@@ -47,4 +47,4 @@ class Ball(pygame.sprite.Sprite):
     def center_ball(self):        
         # Center the ship on the screen.
         self.rect.x = self.screen_rect.centerx 
-        self.rect.y = self.screen_rect.bottom -60
+        self.rect.y = self.screen_rect.bottom -54
