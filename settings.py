@@ -22,16 +22,16 @@ class Settings():
         # Brick settings
         self.brick_width = 160 #60
         self.brick_height = 100 #30
-        self.color_code = 0
-        self.brick_color = colors[self.color_code]
+        #self.color_code = 0
+        #self.brick_color = colors[self.color_code]
     
         # Scoring
-        self.brick_points = 50
+        self.brick_points = 100
     
     def level_up(self):
         # leveling up
-        self.bat_width -= 100
+        #self.bat_width -= 100
         self.brick_width -= 20
         self.brick_height -= 20
-        self.color_code += 1
+        #self.color_code += 1
         
