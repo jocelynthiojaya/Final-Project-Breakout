@@ -114,7 +114,8 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
 
 def collision_brick(ai_settings, stats, sb, ball, bricks):
     # sequence for collisions with brick
-    for brick in pygame.sprite.spritecollide(ball, bricks, True): 
+    if pygame.sprite.spritecollide(ball, bricks, True):
+    #for brick in pygame.sprite.spritecollide(ball, bricks, True): 
         ball.brick_collision()
         
         stats.score += ai_settings.brick_points        

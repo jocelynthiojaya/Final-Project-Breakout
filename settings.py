@@ -11,8 +11,8 @@ class Settings():
         self.bg_color = (230, 230, 230)
 
         # Bat settings
-        self.bat_speed_factor = 1.5
-        self.bat_width = 170
+        self.bat_speed_factor = 3
+        self.bat_width = 1000
         self.bat_height = 7.5
 
         # Ball settings

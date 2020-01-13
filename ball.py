@@ -43,8 +43,8 @@ class Ball(pygame.sprite.Sprite):
     
     def brick_collision(self):
         # when collide with a brick, bounces
-        self.change_x = random.randrange(-1, 2)
-        self.change_y = random.randrange(1, 2)
+        self.change_x *= -1 #random.randrange(-1, 2)
+        self.change_y *= -1 #random.randrange(-1, 2)
     
     def blitme(self): 
         # draws image to screen
