@@ -20,31 +20,37 @@ class Ball(pygame.sprite.Sprite):
         self.rect.x = self.screen_rect.centerx 
         self.rect.y = self.screen_rect.bottom -54
 
+        # Values to change x,y coordinates
         self.change_x = random.randrange(-1, 2)
-        self.change_y = random.randrange(-1, 2)
+        self.change_y = random.randrange(1, 2)
 
     def update(self):
+        # updates the ball's rect
         self.rect.x += self.change_x
         self.rect.y += self.change_y
 
     def collision_wall(self):
+        # when collide with a wall, bounces
         if self.rect.x>=self.screen_rect.right or self.rect.x<=0:
             self.change_x *= -1
         if self.rect.y>self.screen_rect.bottom or self.rect.y<0:
             self.change_y *= -1
     
     def bat_collision(self):
+        # when collide with a bat, bounces
         self.change_x = random.randrange(-1, 2)
         self.change_y = - self.change_y
     
     def brick_collision(self):
+        # when collide with a brick, bounces
         self.change_x = random.randrange(-1, 2)
         self.change_y = random.randrange(1, 2)
     
     def blitme(self): 
+        # draws image to screen
         self.screen.blit(self.image, self.rect)
     
     def center_ball(self):        
-        # Center the ship on the screen.
+        # Center the ball on the screen.
         self.rect.x = self.screen_rect.centerx 
         self.rect.y = self.screen_rect.bottom -54

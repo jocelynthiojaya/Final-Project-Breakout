@@ -53,10 +53,11 @@ def check_play_button(ai_settings, screen, stats, sb, bat, bricks, play_button,
         stats.reset_stats()      
         stats.game_active = True
 
-        # Empty the list of bricks
+        # Empty the list of bricks and reset brick settings
         bricks.empty()
+        ai_settings.reset_bricks()
 
-        # Create a new fleet and center the ship.
+        # Create a new rows of bricks and center the bat.
         create_rowbricks(ai_settings, screen, bricks)
         bat.center_bat()
 
@@ -67,37 +68,44 @@ def check_play_button(ai_settings, screen, stats, sb, bat, bricks, play_button,
         sb.prep_balls()
 
 def is_collision_bat(ball, bat):
+    # for check if ball is collide with bat
     return ball.rect.colliderect(bat.rect)
 
 def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):    
-    # Respond to ship being hit by alien.
-    # Decrement ships_left. 
+    # Respond to ball dying, aka player loses a life.
     if stats.balls_left > 0:
         col = pygame.sprite.collide_rect(ball, bottom_line)
         if col == True:
+            # Decrement balls_left. 
             print('hit bottom')
             stats.balls_left -= 1
 
             # Update scoreboard
             sb.prep_balls()
 
+            # center bat and ball
             bat.center_bat()
             ball.center_ball()
 
-            #pause
+            # pause
             sleep(0.5)
         
         if len(bricks) == 0:
-            # Destroy existing bricks, create new smaller ones
+            # Destroy existing bricks
             bricks.empty()
+
+            # center bat and ball
             bat.center_bat()
             ball.center_ball()
+
+            # change settings to be harder
             ai_settings.level_up()
             
             # Increase level.
             stats.level += 1
             sb.prep_level()
             
+            # create new smaller bricks
             create_rowbricks(ai_settings, screen, bricks)
             
     else:        
@@ -105,20 +113,16 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
         pygame.mouse.set_visible(True)
 
 def collision_brick(ai_settings, stats, sb, ball, bricks):
-    #score = 0
-    # detect collisions
+    # sequence for collisions with brick
     for brick in pygame.sprite.spritecollide(ball, bricks, True): 
         ball.brick_collision()
         
         stats.score += ai_settings.brick_points        
         sb.prep_score()
         check_high_score(stats, sb)
-    #for brick in bricks_hit_list:
-    #    score += 1
-    #    print(score)
 
 def update_screen(ai_settings, screen, stats, sb, bat, ball, bricks, 
-    bottom_line, play_button):    
+    bottom_line, play_button, title):    
     # Update images on the screen and flip to the new screen.
     # Redraw the screen during each pass through the loop.    
     screen.fill(ai_settings.bg_color)    
@@ -132,19 +136,20 @@ def update_screen(ai_settings, screen, stats, sb, bat, ball, bricks,
 
     # Draw the play button if the game is inactive.
     if not stats.game_active:        
+        title.blitme()
         play_button.draw_button()
     
     # Make the most recently drawn screen visible.
     pygame.display.flip()
 
 def get_number_bricks_x(ai_settings, brick_width):
-    #Determine the number of aliens that fit in a row.
+    #Determine the number of bricks that fit in a row.
     available_space_x = ai_settings.screen_width - 2 * brick_width
     number_bricks_x = int(available_space_x / (brick_width))
     return number_bricks_x
 
 def get_number_rows(ai_settings, brick_height):
-    # Determine the number of rows of aliens that fit on the screen.
+    # Determine the number of rows of bricks that fit on the screen.
     available_space_y = (ai_settings.screen_height - (3 * brick_height))   
     number_rows = int(available_space_y / (2 * brick_height))    
     return number_rows

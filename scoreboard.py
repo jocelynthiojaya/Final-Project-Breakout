@@ -46,7 +46,7 @@ class Scoreboard():
         self.high_score_rect.top = self.score_rect.top
 
     def prep_balls(self):
-        # Show how many bats are left.
+        # Show how many balls are left.
         self.balls = Group()
         for ball_number in range(self.stats.balls_left):
             ball = Ball(self.ai_settings, self.screen)
@@ -70,5 +70,5 @@ class Scoreboard():
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
         
-        # Draw ships.
+        # Draw balls.
         self.balls.draw(self.screen)
