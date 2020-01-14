@@ -112,7 +112,7 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
         stats.game_active = False
         pygame.mouse.set_visible(True)
 
-def collision_brick(ai_settings, stats, sb, ball, bricks):
+def do_collision_brick(ai_settings, stats, sb, ball, bricks):
     # sequence for collisions with brick
     if pygame.sprite.spritecollide(ball, bricks, True):
     #for brick in pygame.sprite.spritecollide(ball, bricks, True): 

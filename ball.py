@@ -29,7 +29,7 @@ class Ball(pygame.sprite.Sprite):
         self.rect.x += self.change_x
         self.rect.y += self.change_y
 
-    def collision_wall(self):
+    def do_collision_wall(self):
         # when collide with a wall, bounces
         if self.rect.x>=self.screen_rect.right or self.rect.x<=0:
             self.change_x *= -1

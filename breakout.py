@@ -40,7 +40,7 @@ def run_game():
     while True:
         # check mouse and key events
         gf.check_events(ai_settings, screen, stats, sb, bat, bricks, play_button)
-   
+        
         if stats.game_active:
             # sequence when player loses a life
             gf.ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line)
@@ -49,8 +49,8 @@ def run_game():
             if gf.is_collision_bat(ball, bat):
                 ball.bat_collision()
 
-            gf.collision_brick(ai_settings, stats, sb, ball, bricks)
-            ball.collision_wall()
+            gf.do_collision_brick(ai_settings, stats, sb, ball, bricks)
+            ball.do_collision_wall()
 
             # updates ball and bat position
             bat.update()
