@@ -28,6 +28,10 @@ class Settings():
     
         # Scoring
         self.brick_points = 100
+
+        # Title settings
+        self.title_x = +260
+        self.title_y = -550
     
     def level_up(self):
         # sequence when player reaches a new level

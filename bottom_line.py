@@ -17,8 +17,9 @@ class BottomLine(pygame.sprite.Sprite):
         self.screen_rect = screen.get_rect()
         
         # position bottomline at the bottom, below the screen.
+        self.image_height = 10
         self.rect.centerx = self.screen_rect.centerx        
-        self.rect.bottom = self.screen_rect.bottom + 10
+        self.rect.bottom = self.screen_rect.bottom + self.image_height
     
     def blitme(self):        
         # Draw the bottomline at its current location.

@@ -2,7 +2,6 @@ import pygame
 import random
  
 class Ball(pygame.sprite.Sprite):
-    #This class represents a car. It derives from the "Sprite" class in Pygame.
     
     def __init__(self, ai_settings, screen):
         # Call the parent class (Sprite) constructor
@@ -16,11 +15,11 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.image.load('images/ball.png') 
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
-        
-        # Credits to: http://programarcadegames.com/python_examples/f.php?file=bouncing_balls.py
 
         self.rect.x = self.screen_rect.centerx 
         self.rect.y = self.screen_rect.bottom - ai_settings.bot_distance
+
+        # Credits to: http://programarcadegames.com/python_examples/f.php?file=bouncing_balls.py
 
         # Values to change x,y coordinates
         self.change_x = random.randrange(-1, 2)

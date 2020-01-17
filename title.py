@@ -11,8 +11,8 @@ class Title():
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         
-        self.rect.x = self.screen_rect.left +260
-        self.rect.y = self.screen_rect.bottom -550
+        self.rect.x = self.screen_rect.left + ai_settings.title_x
+        self.rect.y = self.screen_rect.bottom +ai_settings.title_y
     
     def blitme(self): 
         # draw the title image
