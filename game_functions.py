@@ -85,7 +85,7 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
 
             # center bat and ball
             bat.center_bat()
-            ball.center_ball()
+            ball.center_ball(ai_settings)
 
             # pause
             sleep(0.5)
@@ -96,7 +96,7 @@ def ball_die(ai_settings, stats, screen, sb, bat, bricks, ball, bottom_line):
 
             # center bat and ball
             bat.center_bat()
-            ball.center_ball()
+            ball.center_ball(ai_settings)
 
             # change settings to be harder
             ai_settings.level_up()

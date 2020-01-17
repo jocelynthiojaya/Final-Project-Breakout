@@ -9,6 +9,7 @@ class Settings():
         self.screen_width = 1000
         self.screen_height = 700       
         self.bg_color = (230, 230, 230)
+        self.bot_distance = 54
 
         # Bat settings
         self.bat_speed_factor = 1
@@ -23,14 +24,15 @@ class Settings():
         self.brick_height = 120
         self.color_code = 0
         self.brick_color = colors[self.color_code]
+        self.brick_size_factor = 0.8
     
         # Scoring
         self.brick_points = 100
     
     def level_up(self):
         # sequence when player reaches a new level
-        self.brick_width *= 0.8
-        self.brick_height *= 0.8
+        self.brick_width *=  self.brick_size_factor
+        self.brick_height *=  self.brick_size_factor
         if self.color_code == 10:
             self.color_code = 0
             self.brick_color = colors[self.color_code]

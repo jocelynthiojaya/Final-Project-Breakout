@@ -17,8 +17,10 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         
+        # Credits to: http://programarcadegames.com/python_examples/f.php?file=bouncing_balls.py
+
         self.rect.x = self.screen_rect.centerx 
-        self.rect.y = self.screen_rect.bottom -54
+        self.rect.y = self.screen_rect.bottom - ai_settings.bot_distance
 
         # Values to change x,y coordinates
         self.change_x = random.randrange(-1, 2)
@@ -50,7 +52,7 @@ class Ball(pygame.sprite.Sprite):
         # draws image to screen
         self.screen.blit(self.image, self.rect)
     
-    def center_ball(self):        
+    def center_ball(self, ai_settings):        
         # Center the ball on the screen.
         self.rect.x = self.screen_rect.centerx 
-        self.rect.y = self.screen_rect.bottom -54
+        self.rect.y = self.screen_rect.bottom - ai_settings.bot_distance
